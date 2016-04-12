@@ -1,0 +1,32 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="modal-header">
+          <h4 class="modal-title">Log in</h4>
+        </div>
+        <div class="modal-body">
+          <%= devise_error_messages! %>
+          <div class="form-group">
+            <%= f.label :email, 'Email address' %><br/>
+            <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Email' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :password %><br/>
+            <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: 'Password' %>
+          </div>
+          <% if devise_mapping.rememberable? -%>
+              <div class="field">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
+              </div>
+          <% end -%>
+        </div>
+        <div class="modal-footer">
+          <%= link_to 'Forgot your password?', new_user_password_path, class: 'btn btn-danger', role: 'button' %>
+          <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-info', role: 'button' %>
+          <%= f.submit "Log in", class: 'btn btn-primary' %>
+        </div>
+
+        </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    <% end %>
