@@ -49,7 +49,6 @@ test:
 #
 production:
   <<: *default
-  url: localhost
   database: HotelBookingSystem_production
   username: root
   password: <%= ENV['HOTELBOOKINGSYSTEM_DATABASE_PASSWORD'] %>
