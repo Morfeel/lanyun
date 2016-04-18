@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Yun-Lan Grand Hotel</title>
+  <title>澜允饭店</title>
 
   <!-- Bootstrap Core CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -56,7 +56,7 @@
         <i class="fa fa-bars"></i>
       </button>
       <%= link_to root_url, class: 'navbar-brand page-scroll' do %>
-          <i class="fa fa-play-circle"></i> <span class="light">Yun-Lan</span> Grand Hotel
+          <i class="fa fa-play-circle"></i> <span class="light">澜允</span> 饭店
       <% end %>
     </div>
 
@@ -68,13 +68,13 @@
           <a href="#page-top"></a>
         </li>
         <li>
-          <%= link_to "About us", root_path(anchor: 'about') %>
+          <%= link_to "关于我们", root_path(anchor: 'about') %>
         </li>
         <li>
           <%= link_to "Download", root_path(anchor: 'download') %>
         </li>
         <li>
-          <%= link_to "Contact", root_path(anchor: 'contact') %>
+          <%= link_to "联系我们", root_path(anchor: 'contact') %>
         </li>
         <li>
 
@@ -83,14 +83,14 @@
               <%= link_to current_user.given_name, edit_user_registration_path %>
             </li>
             <li>
-              <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+              <%= link_to "注销", destroy_user_session_path, :method => :delete %>
             </li>
         <% else %>
             <li>
-              <%= link_to "Register", new_user_registration_path %>
+              <%= link_to "注册", new_user_registration_path %>
             </li>
             <li>
-              <%= link_to "Sign in", new_user_session_path %>
+              <%= link_to "登陆", new_user_session_path %>
             </li>
         <% end %>
         </li>
@@ -107,7 +107,7 @@
 <!-- Footer -->
 <footer>
   <div class="container text-center">
-    <p>Copyright &copy; Yun-Lan Grand Hotel 2016</p>
+    <p>Copyright &copy; 澜允饭店 2016</p>
   </div>
 </footer>
 

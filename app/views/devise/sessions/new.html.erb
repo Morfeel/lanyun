@@ -2,29 +2,29 @@
   <div class="modal-content">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="modal-header">
-          <h4 class="modal-title">Log in</h4>
+          <h4 class="modal-title">登陆</h4>
         </div>
         <div class="modal-body">
           <%= devise_error_messages! %>
           <div class="form-group">
-            <%= f.label :email, 'Email address' %><br/>
-            <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Email' %>
+            <%= f.label :email, '邮箱' %><br/>
+            <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: '邮箱' %>
           </div>
           <div class="form-group">
-            <%= f.label :password %><br/>
-            <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: 'Password' %>
+            <%= f.label :password, '密码' %><br/>
+            <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: '密码' %>
           </div>
           <% if devise_mapping.rememberable? -%>
               <div class="field">
                 <%= f.check_box :remember_me %>
-                <%= f.label :remember_me %>
+                <%= f.label :remember_me, '记住我' %>
               </div>
           <% end -%>
         </div>
         <div class="modal-footer">
-          <%= link_to 'Forgot your password?', new_user_password_path, class: 'btn btn-danger', role: 'button' %>
-          <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-info', role: 'button' %>
-          <%= f.submit "Log in", class: 'btn btn-primary' %>
+          <%= link_to '忘了密码?', new_user_password_path, class: 'btn btn-danger', role: 'button' %>
+          <%= link_to '注册', new_user_registration_path, class: 'btn btn-info', role: 'button' %>
+          <%= f.submit "登陆", class: 'btn btn-primary' %>
         </div>
 
         </div><!-- /.modal-content -->
