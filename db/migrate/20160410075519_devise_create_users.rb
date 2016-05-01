@@ -39,7 +39,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :family_name, null: false, default: "Doe"
       t.string :id_photocopy
       t.string :contact_number, null: false, default: "13000000000"
-      t.string :gender, null: false, default: "mail"
+      t.string :gender, null: false, default: "male"
 
     end
 
