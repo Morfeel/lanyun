@@ -23,14 +23,15 @@ ActiveRecord::Schema.define(version: 20160501065639) do
   end
 
   create_table "beds", force: :cascade do |t|
-    t.integer  "bed_profiles_id", limit: 4, null: false
-    t.integer  "rooms_id",        limit: 4, null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "name",           limit: 255, default: "unknown", null: false
+    t.integer  "bed_profile_id", limit: 4,                       null: false
+    t.integer  "room_id",        limit: 4
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
   end
 
-  add_index "beds", ["bed_profiles_id"], name: "index_beds_on_bed_profiles_id", using: :btree
-  add_index "beds", ["rooms_id"], name: "index_beds_on_rooms_id", using: :btree
+  add_index "beds", ["bed_profile_id"], name: "index_beds_on_bed_profile_id", using: :btree
+  add_index "beds", ["room_id"], name: "index_beds_on_room_id", using: :btree
 
   create_table "reservations", force: :cascade do |t|
     t.string   "status",     limit: 255, default: "booked", null: false
@@ -70,12 +71,13 @@ ActiveRecord::Schema.define(version: 20160501065639) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.integer  "room_profiles_id", limit: 4, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "name",            limit: 255, default: "unknown", null: false
+    t.integer  "room_profile_id", limit: 4,                       null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
   end
 
-  add_index "rooms", ["room_profiles_id"], name: "index_rooms_on_room_profiles_id", using: :btree
+  add_index "rooms", ["room_profile_id"], name: "index_rooms_on_room_profile_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "",                   null: false
