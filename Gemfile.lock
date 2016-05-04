@@ -67,9 +67,6 @@ GEM
     devise_security_extension (0.10.0)
       devise (>= 3.0.0, < 4.0)
       railties (>= 3.2.6, < 5.0)
-    erd (0.4.0)
-      nokogiri
-      rails-erd (>= 0.4.5)
     erubis (2.7.0)
     execjs (2.6.0)
     globalid (0.3.6)
@@ -180,12 +177,12 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   devise
   devise_security_extension
-  erd
   jbuilder (~> 2.0)
   jquery-rails
   libv8
   mysql2 (~> 0.3.18)
   rails (= 4.2.4)
+  rails-erd
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring
