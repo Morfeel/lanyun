@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160501065639) do
+ActiveRecord::Schema.define(version: 20160507082945) do
 
   create_table "bed_profiles", force: :cascade do |t|
     t.string   "name",       limit: 255, default: "unknow", null: false
@@ -42,14 +42,6 @@ ActiveRecord::Schema.define(version: 20160501065639) do
 
   add_index "reservations", ["user_id"], name: "index_reservations_on_user_id", using: :btree
 
-  create_table "reservations_rooms", id: false, force: :cascade do |t|
-    t.integer "reservations_id", limit: 4, null: false
-    t.integer "rooms_id",        limit: 4, null: false
-  end
-
-  add_index "reservations_rooms", ["reservations_id"], name: "index_reservations_rooms_on_reservations_id", using: :btree
-  add_index "reservations_rooms", ["rooms_id"], name: "index_reservations_rooms_on_rooms_id", using: :btree
-
   create_table "room_bed_profiles", force: :cascade do |t|
     t.integer  "room_profile_id", limit: 4, null: false
     t.integer  "bed_profile_id",  limit: 4, null: false
@@ -70,11 +62,24 @@ ActiveRecord::Schema.define(version: 20160501065639) do
     t.datetime "updated_at",                                                         null: false
   end
 
+  create_table "room_reservations", force: :cascade do |t|
+    t.integer  "reservation_id", limit: 4, null: false
+    t.integer  "room_id",        limit: 4, null: false
+    t.date     "start_date",               null: false
+    t.date     "end_date",                 null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "room_reservations", ["reservation_id"], name: "index_room_reservations_on_reservation_id", using: :btree
+  add_index "room_reservations", ["room_id"], name: "index_room_reservations_on_room_id", using: :btree
+
   create_table "rooms", force: :cascade do |t|
-    t.string   "name",            limit: 255, default: "unknown", null: false
-    t.integer  "room_profile_id", limit: 4,                       null: false
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.string   "name",            limit: 255, default: "unknown",   null: false
+    t.string   "status",          limit: 255, default: "available", null: false
+    t.integer  "room_profile_id", limit: 4,                         null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
   end
 
   add_index "rooms", ["room_profile_id"], name: "index_rooms_on_room_profile_id", using: :btree

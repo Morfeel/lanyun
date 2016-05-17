@@ -1,0 +1,59 @@
+<!--<p id="notice"><%= notice %></p>-->
+
+
+<div class="table-responsive">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">房间查询</h4>
+    </div>
+    <%= form_tag controller: 'rooms', action: 'book', method: 'post' do %>
+    <div class="modal-body">
+
+      <div class="col-lg-4">
+        <%= label_tag :profile, '类型' %>
+        <%= select_tag 'profile', options_from_collection_for_select(RoomProfile.all, 'id', 'name'), class: 'form-control' %>
+      </div>
+      <div class="col-lg-4">
+        <div class="form-group">
+          <%= label_tag :checkin, '起始' %>
+          <%= text_field_tag :checkin, (@checkin.strftime '%m/%d/%Y' if @checkin), placeholder: '起始', class: 'form-control datepicker' %>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="form-group">
+          <%= label_tag :checkout, '终止' %>
+          <%= text_field_tag :checkout, (@checkout.strftime '%m/%d/%Y' if @checkout), placeholder: '终止', class: 'form-control datepicker' %>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <% if @rooms.present? %>
+          <table class="table table-hover table-striped">
+          <%  @rooms.each do |room| %>
+              <tr>
+                <td><%= link_to room.name, room %></td>
+                <td><%= room.room_profile.name %></td>
+              </tr>
+          <% end %>
+          </table>
+
+      <% end %>
+
+      <script>
+        $(document).ready(function(){
+          $( ".datepicker" ).datepicker();
+        });
+      </script>
+
+    </div>
+    <div class="modal-footer">
+      <%= submit_tag '查找', class:'btn btn-default' %>
+    </div>
+
+    <% end %>
+
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div>

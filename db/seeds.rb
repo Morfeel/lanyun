@@ -220,3 +220,38 @@ i=8 # i - floor number, only floor 8
   bedSuperKing.save
 
 end
+
+puts 'Generate random reservations'
+# Reservation
+res = Reservation.new
+usr = User.find_by_email('morfeel@gmail.com')
+usr.reservations << res
+room = Room.find_by_name('405')
+room.status = 'booked'
+room.save
+
+resRoom = RoomReservation.new room: room, reservation: res,
+                              start_date: Date.today - 30, end_date: Date.today - 1
+
+resRoom.save
+
+(1..1000).each do |i|
+
+  if i%100 == 0
+    puts i.to_s + ' have done!'
+  end
+
+  while !defined? @room  or @room.nil? do
+    @startDate = Time.at(Time.new(2015, 1, 1) + rand * (Time.new(2016, 12, 31) - Time.new(2015, 1, 1))).to_date
+    duration = rand(60) + 1
+    @endDate = @startDate + duration
+
+    @room = Room.findAvailableRoom(roomProfile: RoomProfile.offset(rand(RoomProfile.count)).first, startDate: @startDate, endDate: @endDate).first
+
+  end
+
+  usr = User.offset(rand(User.count)).first
+
+  @room.reserve usr: usr, startDate: @startDate, endDate: @endDate
+  @room = nil
+end

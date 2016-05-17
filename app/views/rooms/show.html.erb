@@ -1,0 +1,94 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <p id="notice"><%= notice %></p>
+
+    <div class="modal-header">
+
+        <span class="close" style="opacity: 1">
+          <% @room.room_profile.room_bed_profiles.each do |profile| %>
+              <% (1..profile.qty).each do %>
+
+                <% if profile.bed_profile.name.eql? 'Single' or
+                    profile.bed_profile.name.eql? 'King Single' %>
+
+                  <object style="width: 20px;" data=<%= image_path 'single.svg' %> type="image/svg+xml"></object>
+
+                <% else %>
+
+                  <object style="width: 30px;" data=<%= image_path 'double.svg' %> type="image/svg+xml"></object>
+
+                <% end %>
+
+              <% end %>
+            <% end %>
+        </span>
+
+      <h4 class="modal-title">
+        <%= link_to '房间信息', rooms_path %>
+        >
+        <%= @room.name %>
+      </h4>
+
+
+    </div>
+
+    <div class="modal-body">
+      <div id="calendar"></div>
+    </div>
+
+    <div class="modal-footer">
+
+      <%= link_to 'Edit', edit_room_path(@room) %> |
+      <%= link_to 'Back', rooms_path %>
+
+    </div>
+
+  </div><!-- /.modal-content -->
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    var calendar = $('#calendar').fullCalendar(
+        {
+          header:
+          {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaDay'
+          },
+          defaultView: 'month',
+          selectable: true,
+          selectHelper: true,
+          select: function(start, end, allDay)
+          {
+            var title = prompt('Event Title:');
+            if (title)
+            {
+              calendar.fullCalendar('renderEvent',
+                  {
+                    title: title,
+                    start: start,
+                    end: end,
+                    allDay: allDay
+                  },
+                  true // make the event "stick"
+              );
+            }
+            calendar.fullCalendar('unselect');
+          },
+          editable: true,
+          events: [
+              <% @room.room_reservations.each do |res| %>
+                {
+                  title: '<%= res.reservation.user.given_name + ' ' + res.reservation.user.family_name %>',
+                  start: new Date('<%= res.start_date %>'),
+                  end: new Date('<%= res.end_date %>')
+                },
+              <% end %>
+          ]
+        });
+
+  });
+</script>
+

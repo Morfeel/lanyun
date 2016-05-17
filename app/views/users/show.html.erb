@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
+
+
+<div class="modal-dialog">
+  <div class="modal-content">
+    <p id="notice"><%= notice %></p>
+
+    <div class="modal-header">
+      <h4 class="modal-title">修改个人信息</h4>
+    </div>
+    <div class="modal-body">
+      <%= @user.inspect %>
+    </div>
+
+    <div class="modal-footer">
+
+      <%= link_to 'Edit', edit_room_path(@user) %> |
+      <%= link_to 'Back', rooms_path %>
+
+    </div>
+
+  </div><!-- /.modal-content -->
+</div>
