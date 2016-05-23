@@ -2,8 +2,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
   def change
     create_table(:users) do |t|
       ## Database authenticatable
-      t.string :email, null: false, default: ""
-      t.string :encrypted_password, null: false, default: ""
+      t.string :email, null: false, default: ''
+      t.string :encrypted_password, null: false, default: ''
 
       ## Recoverable
       t.string :reset_password_token
@@ -34,12 +34,13 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.timestamps null: false
 
       ## Mine
-      t.string :id_number, null: false, default: "000000000000000000"
-      t.string :given_name, null: false, default: "Joe"
-      t.string :family_name, null: false, default: "Doe"
+      t.string :id_number, null: false, default: '000000000000000000'
+      t.string :given_name, null: false, default: 'Joe'
+      t.string :family_name, null: false, default: 'Doe'
       t.string :id_photocopy
-      t.string :contact_number, null: false, default: "13000000000"
-      t.string :gender, null: false, default: "male"
+      t.string :contact_number, null: false, default: '13000000000'
+      t.string :gender, null: false, default: 'male'
+      t.boolean :admin, null: false, default: false
 
     end
 

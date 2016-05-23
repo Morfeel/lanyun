@@ -5,4 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :reservations
+
+  def name
+    return self.given_name + ' ' + self.family_name
+  end
 end

@@ -32,10 +32,8 @@
   <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.1/fullcalendar.min.css">
 
   <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <!--<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>-->
 
-  <!-- Bootstrap Core JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
   <%= csrf_meta_tags %>
   <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
@@ -45,6 +43,9 @@
   <%= stylesheet_link_tag 'application' %>
   <%= javascript_include_tag 'application' %>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.1/fullcalendar.min.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 
 </head>
@@ -71,13 +72,32 @@
           <a href="#page-top"></a>
         </li>
         <li>
-          <%= link_to "关于我们", root_path(anchor: 'about') %>
+          <%= link_to '关于我们', root_path(anchor: 'about') %>
         </li>
+        <% if user_signed_in?  %>
+          <li>
+            <%= link_to '预订', book_url %>
+          </li>
+
+            <% if current_user.admin %>
+
+                <li role="presentation" class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    信息管理 <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <%= link_to '用户信息管理', users_url %>
+                    </li>
+                    <li>
+                      <%= link_to '房间信息管理', rooms_url %>
+                    </li>
+                  </ul>
+                </li>
+            <% end %>
+        <% end %>
         <li>
-          <%= link_to "Download", root_path(anchor: 'download') %>
-        </li>
-        <li>
-          <%= link_to "联系我们", root_path(anchor: 'contact') %>
+          <%= link_to '联系我们', root_path(anchor: 'contact') %>
         </li>
         <li>
 

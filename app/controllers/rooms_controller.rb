@@ -1,4 +1,6 @@
 class RoomsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :admin_only, except: [:book, :search, :reserve]
   before_action :set_room, only: [:show, :edit, :update, :destroy]
 
   # GET /rooms
@@ -70,21 +72,54 @@ class RoomsController < ApplicationController
     @checkin = params[:checkin].present? ? (Date.strptime params[:checkin], '%m/%d/%Y') : Date.today
     @checkout = params[:checkout].present? ? (Date.strptime params[:checkout], '%m/%d/%Y') : Date.today + 1
 
-    @rooms = Room.findAvailableRoom roomProfile: RoomProfile.find_by_id(params[:profile]), startDate: @checkin, endDate: @checkout
+    @profile = params[:profile].present? ? params[:profile] : nil
+    @rooms = Room.findAvailableRoom roomProfile: RoomProfile.find_by_id(@profile), startDate: @checkin, endDate: @checkout
     respond_to do |format|
       format.html { render :book }
     end
 
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_room
-      @room = Room.find(params[:id])
+  def reserve
+    @room = Room.find_by_id(params[:id])
+
+    if !@room.blank?
+
+      @checkin = params[:checkin].present? ? (Date.strptime params[:checkin], '%m/%d/%Y') : Date.today
+      @checkout = params[:checkout].present? ? (Date.strptime params[:checkout], '%m/%d/%Y') : Date.today + 1
+
+      if @room.reserve usr: current_user, startDate: @checkin, endDate: @checkout
+        notice = 'Room was successfully reserved to ' + current_user.given_name + ' ' + current_user.family_name +
+            ' from '+ @checkin.to_s + ' to ' + @checkout.to_s+'. Thanks. '
+      else
+        notice = 'Reserve failed. :('
+      end
+
+    else
+      notice = 'Reserve failed. :('
+
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def room_params
-      params.fetch(:room, {})
+    respond_to do |format|
+      format.html { redirect_to '/book', notice: notice }
     end
+
+  end
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_room
+    @room = Room.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def room_params
+    params.fetch(:room, {})
+  end
+
+  def admin_only
+    if !current_user.admin
+      render :file => File.join(Rails.root, 'public/403.html'), status: :forbidden, layout: false
+    end
+  end
 end

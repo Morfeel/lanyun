@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+
+  before_action :authenticate_user!
+  before_action :admin_only, only: [:index]
+  before_action :user_self, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -71,4 +75,18 @@ class UsersController < ApplicationController
     def user_params
       params.fetch(:user, {})
     end
+
+    def admin_only
+      if !current_user.admin
+        render :file => File.join(Rails.root, 'public/403.html'), status: :forbidden, layout: false
+      end
+    end
+
+  def user_self
+    if !current_user.admin
+      if current_user.id.to_s != params[:id]
+        render :file => File.join(Rails.root, 'public/403.html'), status: :forbidden, layout: false
+      end
+    end
+  end
 end

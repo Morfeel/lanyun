@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 20160507082945) do
     t.string   "id_photocopy",           limit: 255
     t.string   "contact_number",         limit: 255, default: "13000000000",        null: false
     t.string   "gender",                 limit: 255, default: "male",               null: false
+    t.boolean  "admin",                              default: false,                null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

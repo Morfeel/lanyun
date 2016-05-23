@@ -9,10 +9,13 @@
     </div>
     <%= form_tag controller: 'rooms', action: 'book', method: 'post' do %>
     <div class="modal-body">
+      <% if flash[:notice].present? %>
+        <span id="helpBlock2" class="help-block"><%= flash[:notice] %></span>
+      <% end %>
 
       <div class="col-lg-4">
         <%= label_tag :profile, '类型' %>
-        <%= select_tag 'profile', options_from_collection_for_select(RoomProfile.all, 'id', 'name'), class: 'form-control' %>
+        <%= select_tag 'profile', options_from_collection_for_select(RoomProfile.all, 'id', 'name', @profile), class: 'form-control' %>
       </div>
       <div class="col-lg-4">
         <div class="form-group">
@@ -35,6 +38,7 @@
               <tr>
                 <td><%= link_to room.name, room %></td>
                 <td><%= room.room_profile.name %></td>
+                <td><%= link_to '预订', '/rooms/'+room.id.to_s+'/reserve', class: 'btn btn-info', role: 'button', checkin: @checkin, checkout: @checkout, data: {confirm: '确定预定吗?'} %></td>
               </tr>
           <% end %>
           </table>

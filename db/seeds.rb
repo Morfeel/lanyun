@@ -6,6 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+User.create email: 'admin@lan-yun.com', password: 'Admin123456', given_name: 'Admin', family_name: 'Lan-Yun',
+            gender: 'male', id_number: rand(1..9).to_s + rand(0..99999999999999999).to_s + (Array('0'..'9') << 'X').sample,
+            contact_number: '13' + rand(0..999999999).to_s, admin: true
 
 User.create email: 'morfeel@gmail.com', password: 'Morfeel7511404', given_name: 'Geoffrey', family_name: 'Li',
             gender: 'male', id_number: rand(1..9).to_s + rand(0..99999999999999999).to_s + (Array('0'..'9') << 'X').sample,

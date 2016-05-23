@@ -25,17 +25,29 @@ class Room < ActiveRecord::Base
     return true
   end
 
-  def reserve (usr: current_user,startDate: Date.today, endDate: (Date.today + 1))
+  def reserve (usr: ,startDate: Date.today, endDate: (Date.today + 1))
 
-    res = Reservation.new
-    usr.reservations << res
+    if self.isAvailable startDate: startDate, endDate: endDate
 
-    self.status = 'booked'
-    self.save
+      res = Reservation.new
+      usr.reservations << res
 
-    resRoom = RoomReservation.new room: self, reservation: res,
-                                  start_date: startDate, end_date: endDate
-    resRoom.save
+      self.status = 'booked'
+      self.save
+
+      resRoom = RoomReservation.new room: self, reservation: res,
+                                    start_date: startDate, end_date: endDate
+      resRoom.save
+
+    end
+
+    if defined? resRoom and resRoom.is_a? RoomReservation
+      return true
+    else
+      return false
+    end
+
+
   end
 
 end
